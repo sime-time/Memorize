@@ -13,35 +13,30 @@ struct ContentView: View {
             CardView()
             CardView(isFaceUp: true)
             CardView()
+            CardView()
         }
+        .padding()
     }
 }
+
 
 struct CardView: View {
     var isFaceUp: Bool = false
     
     var body: some View {
         ZStack {
+            let base: RoundedRectangle = RoundedRectangle(cornerRadius: 12)
             if isFaceUp {
-                RoundedRectangle(cornerRadius: 12)
-                    .foregroundStyle(.white)
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(lineWidth: 2)
-                Text("🍒")
-                    .font(.largeTitle)
+                base.fill(.white)
+                base.stroke(lineWidth: 2)
+                Text("🍒").font(.largeTitle)
             } else {
-                RoundedRectangle(cornerRadius: 12)
+                base
             }
         }
         .foregroundStyle(.green)
-        .padding()
     }
 }
-
-
-
-
-
 
 
 #Preview {
