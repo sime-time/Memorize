@@ -51,6 +51,7 @@ struct ContentView: View {
     func createThemeButton(theme_emojis: Array<String>, symbol: String, theme_name: String) -> some View {
         Button(action: {
             emojis = theme_emojis + theme_emojis
+            emojis = emojis.shuffled()
         }, label: {
             VStack {
                 Image(systemName: symbol).font(.title2)
