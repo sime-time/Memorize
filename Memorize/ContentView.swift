@@ -9,12 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let veggies: Array<String> = ["🥕", "🌽", "🥦", "🧅", "🍆", "🌶️"]
+    let veggies: Array<String> = ["🥕", "🌽", "🥦", "🍆", "🌶️"]
     let sports: Array<String> = ["🏀", "⚽️", "⚾️", "🏈", "🎾", "🏐"]
     let animals: Array<String> = ["🐅", "🦧", "🦩", "🦒", "🦏", "🐊"]
     
-    @State var emojis: Array<String> = ["🥕", "🌽", "🥦", "🧅", "🍆", "🌶️"]
-    @State var cardCount: Int = 6
+    @State var emojis: Array<String> = []
     
     var body: some View {
         VStack {
@@ -30,7 +29,7 @@ struct ContentView: View {
     
     var cards: some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
-            ForEach(0..<cardCount, id: \.self) { index in
+            ForEach(0..<emojis.count, id: \.self) { index in
                 CardView(content: emojis[index])
                     .aspectRatio(2/3, contentMode: .fit)
             }
@@ -40,18 +39,18 @@ struct ContentView: View {
     var cardThemeOptions: some View {
         HStack {
             Spacer()
-            vegetableTheme
+            vegetableThemeButton
             Spacer()
-            sportsTheme
+            sportsThemeButton
             Spacer()
-            animalTheme
+            animalThemeButton
             Spacer()
         }
     }
     
-    func cardThemeButton(theme_emojis: Array<String>, symbol: String, theme_name: String) -> some View {
+    func createThemeButton(theme_emojis: Array<String>, symbol: String, theme_name: String) -> some View {
         Button(action: {
-            emojis = theme_emojis
+            emojis = theme_emojis + theme_emojis
         }, label: {
             VStack {
                 Image(systemName: symbol).font(.title2)
@@ -60,22 +59,23 @@ struct ContentView: View {
         })
     }
     
-    var vegetableTheme: some View {
-        return cardThemeButton(theme_emojis: veggies, symbol: "carrot", theme_name: "Veggies")
+    var vegetableThemeButton: some View {
+        return createThemeButton(theme_emojis: veggies, symbol: "carrot", theme_name: "Veggies")
     }
     
-    var sportsTheme: some View {
-        return cardThemeButton(theme_emojis: sports, symbol: "basketball", theme_name: "Sports")
+    var sportsThemeButton: some View {
+        return createThemeButton(theme_emojis: sports, symbol: "basketball", theme_name: "Sports")
     }
     
-    var animalTheme: some View {
-        return cardThemeButton(theme_emojis: animals, symbol: "pawprint", theme_name: "Animals")
+    var animalThemeButton: some View {
+        return createThemeButton(theme_emojis: animals, symbol: "pawprint", theme_name: "Animals")
     }
 
 }
 
 
 struct CardView: View {
+    
     let content: String
     @State var isFaceUp: Bool = true
     
