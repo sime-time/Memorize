@@ -9,11 +9,12 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let veggies: Array<String> = ["🥕", "🌽", "🥦", "🍆", "🌶️"]
+    let veggies: Array<String> = ["🥕", "🌽", "🥦", "🍆", "🌶️", "🧅", "🍠"]
     let sports: Array<String> = ["🏀", "⚽️", "⚾️", "🏈", "🎾", "🏐"]
-    let animals: Array<String> = ["🐅", "🦧", "🦩", "🦒", "🦏", "🐊"]
+    let animals: Array<String> = ["🐅", "🦧", "🦩", "🦒", "🦏", "🐊", "🐪", "🐋"]
     
     @State var emojis: Array<String> = []
+    @State var cardColor = Color.green
     
     var body: some View {
         VStack {
@@ -34,6 +35,7 @@ struct ContentView: View {
                     .aspectRatio(2/3, contentMode: .fit)
             }
         }
+        .foregroundStyle(cardColor)
     }
     
     var cardThemeOptions: some View {
@@ -48,8 +50,9 @@ struct ContentView: View {
         }
     }
     
-    func createThemeButton(theme_emojis: Array<String>, symbol: String, theme_name: String) -> some View {
+    func createThemeButton(theme_emojis: Array<String>, symbol: String, theme_name: String, theme_color: Color) -> some View {
         Button(action: {
+            cardColor = theme_color
             emojis = theme_emojis + theme_emojis
             emojis = emojis.shuffled()
         }, label: {
@@ -61,15 +64,15 @@ struct ContentView: View {
     }
     
     var vegetableThemeButton: some View {
-        return createThemeButton(theme_emojis: veggies, symbol: "carrot", theme_name: "Veggies")
+        return createThemeButton(theme_emojis: veggies, symbol: "carrot", theme_name: "Veggies", theme_color: Color.green)
     }
     
     var sportsThemeButton: some View {
-        return createThemeButton(theme_emojis: sports, symbol: "basketball", theme_name: "Sports")
+        return createThemeButton(theme_emojis: sports, symbol: "basketball", theme_name: "Sports", theme_color: Color.orange)
     }
     
     var animalThemeButton: some View {
-        return createThemeButton(theme_emojis: animals, symbol: "pawprint", theme_name: "Animals")
+        return createThemeButton(theme_emojis: animals, symbol: "pawprint", theme_name: "Animals", theme_color: Color.red)
     }
 
 }
@@ -93,7 +96,7 @@ struct CardView: View {
             
             base.fill().opacity(isFaceUp ? 0 : 1)
         }
-        .foregroundStyle(.green)
+        
         .onTapGesture {
             isFaceUp.toggle()
         }
