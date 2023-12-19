@@ -22,23 +22,30 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
     }
     
-    mutating func shuffle() {
-        cards.shuffle()
-        print(cards)
+    var indexoOfTheOneAndOnlyFaceUpCard: Int? {
+        get { return cards.indices.filter { index in cards[index].isFaceUp }.only }
+        set { return cards.indices.forEach { cards[$0].isFaceUp = (newValue == $0) } }
     }
     
     mutating func choose(_ card: Card) {
-        let chosenIndex = index(of: card)
-        cards[chosenIndex].isFaceUp.toggle()
-    }
-    
-    func index(of card: Card) -> Int {
-        for index in cards.indices {
-            if cards[index].id  == card.id {
-                return index
+        if let chosenIndex = cards.firstIndex(where: { $0.id == card.id}) {
+            if !cards[chosenIndex].isFaceUp && !cards[chosenIndex].isMatched {
+                if let potentialMatchIndex = indexoOfTheOneAndOnlyFaceUpCard {
+                    if cards[chosenIndex].content == cards[potentialMatchIndex].content {
+                        cards[chosenIndex].isMatched = true
+                        cards[potentialMatchIndex].isMatched = true
+                    }
+                } else {
+                    indexoOfTheOneAndOnlyFaceUpCard = chosenIndex
+                }
+                cards[chosenIndex].isFaceUp = true
             }
         }
-        return 0 // FIXME: bogus!! but you have to return something
+    }
+    
+    mutating func shuffle() {
+        cards.shuffle()
+        print(cards)
     }
     
     struct Card: Equatable, Identifiable, CustomDebugStringConvertible {
@@ -53,11 +60,15 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
         
         // all variables are equatable, therefore Card is equatable.
-        var isFaceUp: Bool = true
+        var isFaceUp: Bool = false
         var isMatched: Bool = false
         let content: CardContent
         let id: String
     }
 }
 
-
+extension Array {
+    var only: Element? {
+        return count == 1 ? first : nil
+    }
+}
