@@ -24,9 +24,16 @@ struct EmojiMemoryGameView: View {
                     .animation(.default, value: viewModel.cards)
             }
             Spacer()
-            Button("Shuffle") {
-                viewModel.shuffle() 
+            HStack {
+                Button("Shuffle") {
+                    viewModel.shuffle()
+                }
+                Spacer()
+                Button("New Game") {
+                    // TODO: add stuff
+                }
             }
+            
         }
         .padding()
     }
@@ -43,42 +50,6 @@ struct EmojiMemoryGameView: View {
             }
         }
         .foregroundStyle(.green)
-    }
-    
-    var cardThemeOptions: some View {
-        HStack {
-            Spacer()
-            vegetableThemeButton
-            Spacer()
-            sportsThemeButton
-            Spacer()
-            animalThemeButton
-            Spacer()
-        }
-    }
-    
-    func createThemeButton(theme_emojis: Array<String>, symbol: String, theme_name: String) -> some View {
-        Button(action: {
-            emojis = theme_emojis + theme_emojis
-            emojis = emojis.shuffled()
-        }, label: {
-            VStack {
-                Image(systemName: symbol).font(.title2)
-                Text(theme_name).font(.body)
-            }
-        })
-    }
-    
-    var vegetableThemeButton: some View {
-        return createThemeButton(theme_emojis: veggies, symbol: "carrot", theme_name: "Veggies")
-    }
-    
-    var sportsThemeButton: some View {
-        return createThemeButton(theme_emojis: sports, symbol: "basketball", theme_name: "Sports")
-    }
-    
-    var animalThemeButton: some View {
-        return createThemeButton(theme_emojis: animals, symbol: "pawprint", theme_name: "Animals")
     }
 
 }
