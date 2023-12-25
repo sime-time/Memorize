@@ -9,11 +9,7 @@ import SwiftUI
 
 struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
-    
-    let veggies: Array<String> = ["🥕", "🌽", "🥦", "🍆", "🌶️", "🧅", "🍠"]
-    let sports: Array<String> = ["🏀", "⚽️", "⚾️", "🏈", "🎾", "🏐"]
-    let animals: Array<String> = ["🐅", "🦧", "🦩", "🦒", "🦏", "🐊", "🐪", "🐋"]
-    
+
     @State var emojis: Array<String> = []
     
     var body: some View {
@@ -30,7 +26,7 @@ struct EmojiMemoryGameView: View {
                 }
                 Spacer()
                 Button("New Game") {
-                    // TODO: add stuff
+                    // TODO: each new game should use a randomly chosen theme to display its cards
                 }
             }
             

@@ -9,17 +9,33 @@ import Foundation
 
 struct Theme {
     
-    private var emojis: Array<String>
-    var num_pairs: Int
-    var color: String
+    // randomly choose between 6 themes
+    private(set) var emojis: Array<String>
+    private(set) var number_of_pairs: Int
+    private(set) var color: String
     
+    // array of colors
+    private let colors: Array<String> = ["red", "orange", "yellow", "blue", "green", "purple"]
+    
+    // at least 6 distinct themes
     private let veggies: Array<String> = ["🥕", "🌽", "🥦", "🍆", "🌶️", "🧅", "🍠"]
     private let sports: Array<String> = ["🏀", "⚽️", "⚾️", "🏈", "🎾", "🏐"]
     private let animals: Array<String> = ["🐅", "🦧", "🦩", "🦒", "🦏", "🐊", "🐪", "🐋"]
     
     
     
-    init(num_pairs: Int, color: String) {
+    init() {
+        
+        self.number_of_pairs = Int.random(in: 1...10)
+        
+        // randomly choose a color within an array of colors
+        if let random_color = colors.randomElement() {
+            self.color = random_color
+        } else {
+            self.color = colors[0]
+        }
+        
+        // emojis are privately determined randomly, then shuffled
         let emoji_themes = [veggies, sports, animals]
         if let random_theme = emoji_themes.randomElement() {
             self.emojis = random_theme
@@ -27,7 +43,20 @@ struct Theme {
             self.emojis = emoji_themes[0]
         }
         self.emojis = emojis.shuffled()
-        self.num_pairs = num_pairs
-        self.color = color
+    }
+    
+    // get emoji array
+    func getEmojis() -> [String] {
+        return emojis
+    }
+    
+    // get color
+    func getColor() -> String {
+        return color
+    }
+    
+    // get number of pairs
+    func getNumPairs() -> Int {
+        return number_of_pairs
     }
 }

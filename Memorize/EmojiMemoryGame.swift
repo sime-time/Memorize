@@ -7,9 +7,11 @@
 
 import SwiftUI
 
+// VIEWMODEL
 class EmojiMemoryGame: ObservableObject {
     
     @Published private var model = createMemoryGame()
+    @Published private var themes = createTheme()
     
     private static let emojis = ["🥕", "🌽", "🥦", "🍆", "🌶️", "🧅", "🍠"]
     
@@ -23,12 +25,14 @@ class EmojiMemoryGame: ObservableObject {
             
         }
     }
+    
+    private static func createTheme() -> Theme {
+        return Theme()
+    }
 
     var cards: Array<MemoryGame<String>.Card> {
         return model.cards
     }
-    
-    // MARK: - Intents
     
     func shuffle() {
         model.shuffle()
