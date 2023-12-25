@@ -18,9 +18,9 @@ struct Theme {
     private let colors: Array<String> = ["red", "orange", "yellow", "blue", "green", "purple"]
     
     // at least 6 distinct themes
-    private let veggies: Array<String> = ["🥕", "🌽", "🥦", "🍆", "🌶️", "🧅", "🍠"]
-    private let sports: Array<String> = ["🏀", "⚽️", "⚾️", "🏈", "🎾", "🏐"]
-    private let animals: Array<String> = ["🐅", "🦧", "🦩", "🦒", "🦏", "🐊", "🐪", "🐋"]
+    private let veggies: Array<String> = ["🥕", "🌽", "🥦", "🍆", "🌶️", "🧅", "🍠", "🫑", "🧄", "🫛"]
+    private let sports: Array<String> = ["🏀", "⚽️", "⚾️", "🏈", "🎾", "🏐", "🎱", "🏓", "🥏", "🏉"]
+    private let animals: Array<String> = ["🐅", "🦧", "🦩", "🦒", "🦏", "🐊", "🐪", "🐋", "🦭", "🦉"]
     
     
     
@@ -37,7 +37,7 @@ struct Theme {
         
         // emojis are privately determined randomly, then shuffled
         let emoji_themes = [veggies, sports, animals]
-        if let random_theme = emoji_themes.randomElement() {
+        if let random_theme: [String] = emoji_themes.randomElement() {
             self.emojis = random_theme
         } else {
             self.emojis = emoji_themes[0]
@@ -45,18 +45,4 @@ struct Theme {
         self.emojis = emojis.shuffled()
     }
     
-    // get emoji array
-    func getEmojis() -> [String] {
-        return emojis
-    }
-    
-    // get color
-    func getColor() -> String {
-        return color
-    }
-    
-    // get number of pairs
-    func getNumPairs() -> Int {
-        return number_of_pairs
-    }
 }

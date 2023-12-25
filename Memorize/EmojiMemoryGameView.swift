@@ -9,8 +9,6 @@ import SwiftUI
 
 struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
-
-    @State var emojis: Array<String> = []
     
     var body: some View {
         VStack {
@@ -26,7 +24,9 @@ struct EmojiMemoryGameView: View {
                 }
                 Spacer()
                 Button("New Game") {
-                    // TODO: each new game should use a randomly chosen theme to display its cards
+                    // each new game should use a randomly chosen theme to display its cards
+                    viewModel.newGame()
+                    viewModel.shuffle()
                 }
             }
             
@@ -45,7 +45,7 @@ struct EmojiMemoryGameView: View {
                     }
             }
         }
-        .foregroundStyle(.green)
+        .foregroundStyle(.blue)
     }
 
 }

@@ -10,15 +10,16 @@ import SwiftUI
 // VIEWMODEL
 class EmojiMemoryGame: ObservableObject {
     
-    @Published private var model = createMemoryGame()
-    @Published private var themes = createTheme()
+    @Published private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
     
-    private static let emojis = ["🥕", "🌽", "🥦", "🍆", "🌶️", "🧅", "🍠"]
     
     private static func createMemoryGame() -> MemoryGame<String> {
-        return MemoryGame(numberOfPairsOfCards: 6) { pairIndex in
-            if emojis.indices.contains(pairIndex) {
-                return emojis[pairIndex]
+        
+        let theme = createTheme()
+        
+        return MemoryGame(numberOfPairsOfCards: theme.number_of_pairs) { pairIndex in
+            if theme.emojis.indices.contains(pairIndex) {
+                return theme.emojis[pairIndex]
             } else {
                 return "⁉️"
             }
@@ -41,4 +42,9 @@ class EmojiMemoryGame: ObservableObject {
     func choose(_ card: MemoryGame<String>.Card) {
         model.choose(card)
     }
+    
+    func newGame() {
+        model = EmojiMemoryGame.createMemoryGame()
+    }
+    
 }
