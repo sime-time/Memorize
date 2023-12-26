@@ -9,6 +9,24 @@ import SwiftUI
 
 struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
+    var cardColor: Color {
+        switch EmojiMemoryGame.themeColor {
+        case "red":
+            return Color.red
+        case "orange":
+            return Color.orange
+        case "yellow":
+            return Color.yellow
+        case "blue":
+            return Color.blue
+        case "green":
+            return Color.green
+        case "purple":
+            return Color.purple
+        default:
+            return Color.brown
+        }
+    }
     
     var body: some View {
         VStack {
@@ -45,7 +63,7 @@ struct EmojiMemoryGameView: View {
                     }
             }
         }
-        .foregroundStyle(.blue)
+        .foregroundStyle(cardColor)
     }
 
 }

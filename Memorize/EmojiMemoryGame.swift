@@ -10,12 +10,14 @@ import SwiftUI
 // VIEWMODEL
 class EmojiMemoryGame: ObservableObject {
     
-    @Published private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
-    
+    @Published private var model = EmojiMemoryGame.createMemoryGame()
+    private(set) static var themeColor: String = "brown"
     
     private static func createMemoryGame() -> MemoryGame<String> {
         
-        let theme = createTheme()
+        let theme = EmojiMemoryGame.createTheme()
+        
+        themeColor = theme.color
         
         return MemoryGame(numberOfPairsOfCards: theme.number_of_pairs) { pairIndex in
             if theme.emojis.indices.contains(pairIndex) {
