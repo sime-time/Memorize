@@ -13,6 +13,7 @@ struct Theme {
     private(set) var emojis: Array<String>
     private(set) var number_of_pairs: Int
     private(set) var color: String
+    private(set) var name: String
     
     // array of colors
     private let colors: Array<String> = ["red", "orange", "yellow", "blue", "green", "purple"]
@@ -21,6 +22,10 @@ struct Theme {
     private let veggies: Array<String> = ["🥕", "🌽", "🥦", "🍆", "🌶️", "🧅", "🍠", "🫑", "🧄", "🫛"]
     private let sports: Array<String> = ["🏀", "⚽️", "⚾️", "🏈", "🎾", "🏐", "🎱", "🏓", "🥏", "🏉"]
     private let animals: Array<String> = ["🐅", "🦧", "🦩", "🦒", "🦏", "🐊", "🐪", "🐋", "🦭", "🦉"]
+    private let drinks: Array<String> = ["🥛", "☕", "🍵", "🧃", "🧋", "🍺", "🍷", "🥃", "🍸", "🍹"]
+    private let vehicles: Array<String> = ["🚗", "🚌", "🚂", "🚑", "🚒", "🚓", "🚙", "🛻", "🚚", "🛺"]
+    private let fruits: Array<String> = ["🥝", "🍇", "🍉", "🍊", "🍋", "🍌", "🥭", "🍑", "🍒", "🫐"]
+    
     
     
     
@@ -36,13 +41,36 @@ struct Theme {
         }
         
         // emojis are privately determined randomly, then shuffled
-        let emoji_themes = [veggies, sports, animals]
+        self.name = "Memorize!"
+        let emoji_themes = [veggies, sports, animals, drinks, vehicles, fruits]
         if let random_theme: [String] = emoji_themes.randomElement() {
             self.emojis = random_theme
+            self.name = selectName(random_theme)
         } else {
             self.emojis = emoji_themes[0]
         }
         self.emojis = emojis.shuffled()
+    }
+    
+    private func selectName(_ emojiArray: [String]) -> String {
+        var outputName: String
+        switch emojiArray {
+        case veggies:
+            outputName = "Veggies!"
+        case sports:
+            outputName = "Sports!"
+        case animals:
+            outputName = "Animals!"
+        case drinks:
+            outputName = "Drinks!"
+        case vehicles:
+            outputName = "Vehicles!"
+        case fruits:
+            outputName = "Fruits!"
+        default:
+            outputName = "Memorize!"
+        }
+        return outputName
     }
     
 }

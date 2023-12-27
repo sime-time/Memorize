@@ -30,24 +30,17 @@ struct EmojiMemoryGameView: View {
     
     var body: some View {
         VStack {
-            Text("Memorize!").font(.largeTitle)
+            Text(EmojiMemoryGame.themeName).font(.largeTitle)
             ScrollView {
                 cards
                     .animation(.default, value: viewModel.cards)
             }
             Spacer()
-            HStack {
-                Button("Shuffle") {
-                    viewModel.shuffle()
-                }
-                Spacer()
-                Button("New Game") {
-                    // each new game should use a randomly chosen theme to display its cards
-                    viewModel.newGame()
-                    viewModel.shuffle()
-                }
+            Button("New Game") {
+                // each new game should use a randomly chosen theme to display its cards
+                viewModel.newGame()
+                viewModel.shuffle()
             }
-            
         }
         .padding()
     }
